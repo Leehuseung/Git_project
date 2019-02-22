@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 설정파일에서 사용할 프로퍼티의 파일의 경로 지정: classpath -->
+	<properties resource="config/mybatis/db.properties"/>
+	
+	<!-- SQL의 결과를 담을 VO 객체들의 별칭을 설정하여 사용의 편의를 도모  
+	-->
+	<typeAliases>
+		<typeAlias alias="user" type="kr.co.bit_camp.vo.User" />
+		<typeAlias alias="message" type="kr.co.bit_camp.vo.Message" />
+		<typeAlias type="kr.co.bit_camp.vo.Hopebook" alias="hopebook"/>
+		<typeAlias type="kr.co.bit_camp.vo.Rental" alias="rental"/>
+        <typeAlias type="kr.co.bit_camp.vo.UserRental" alias="userrental"/>
+        <typeAlias type="kr.co.bit_camp.vo.Book" alias="book"/>
+        <typeAlias type="kr.co.bit_camp.vo.Board" alias="board"/>
+        <typeAlias type="kr.co.bit_camp.vo.Comment" alias="comment"/>
+        <typeAlias type="kr.co.bit_camp.vo.Attendence" alias="attend"/>
+		<typeAlias alias="classInfo" type="kr.co.bit_camp.vo.ClassInfo" />
+		<typeAlias alias="projectMember" type="kr.co.bit_camp.vo.ProjectMember" />
+		<typeAlias alias="project" type="kr.co.bit_camp.vo.Project" />
+	</typeAliases>
+	
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<mapper resource="config/mapper/user.xml"/>
+		<mapper resource="config/mapper/message.xml"/>
+		<mapper resource="config/mapper/rental.xml"/>
+        <mapper resource="config/mapper/userRental.xml"/>
+        <mapper resource="config/mapper/book.xml"/>
+        <mapper resource="config/mapper/board.xml"/> 
+        <mapper resource="config/mapper/attendence.xml"/>
+	    <mapper resource="config/mapper/project.xml"/>
+	    <mapper resource="config/mapper/projectMember.xml"/>
+	    <mapper resource="config/mapper/classInfo.xml"/>
+	</mappers>
+</configuration>
+
+
+
+
+
+
+
+
+

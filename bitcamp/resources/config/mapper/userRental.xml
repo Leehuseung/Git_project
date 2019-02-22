@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.bit_camp.dao.BookMapper">
+    
+    <resultMap id="userrental" type="userrental" >
+          <result column="book_no" property="bookNo" />
+         <result column="book_title" property="bookTitle" />
+         <result column="book_writer" property="bookWriter" />
+          <result column="rental_indate" property="rentalInDate" />
+         <result column="rental_rent" property="rentalRent" />
+         <result column="rental_date" property="returnDate" /> 
+    </resultMap>
+    
+    
+     <select id="selectRentalBestList" resultType="user">
+       select u.no, u.name, count(*) as total
+          from tb_book b,tb_rental r ,tb_user u
+          where  u.no = r.no
+           and r.book_no = b.book_no
+            group by u.no ,u.name
+            order by count(*) desc
+    </select>
+    
+    <select id="selectDetailRentList" parameterType="int"
+         resultMap="userrental">
+      select b.book_no as book_no, 
+             b.book_title as book_title, 
+             b.book_writer as book_writer, 
+             r.rental_rent as rental_rent,
+             to_char(r.rental_indate+3,'MM-dd HH:mm') as rental_date
+         from tb_book b, tb_rental r
+         where b.book_no = r.book_no
+           and r.no = #{no}
+    </select>
+    
+    
+    
+    
+    
+   
+</mapper>	

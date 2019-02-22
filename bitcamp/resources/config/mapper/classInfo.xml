@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.bit_camp.dao.ClassInfoMapper">
+
+<resultMap id ="classInfoMap"  type="classInfo">
+	<result column="classInfo_no"  property="classInfoNo"/>
+	<result column="classInfo_name"   property="classInfoName"/>
+</resultMap>
+
+<select id ="selectClassInfo" resultMap ="classInfoMap">
+	select classInfo_no, classInfo_name
+	from tb_classInfo
+</select>
+
+</mapper>

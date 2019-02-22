@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.bit_camp.dao.AttendMapper"> 
+
+	<insert id="insertManager" parameterType="attend">
+	   insert into tb_attendence(
+	      no, att_status, att_leave_time, att_no
+	    )values(
+	       #{no},#{attStatus},#{attLeaveTime}, s_att_no.nextval
+	    )
+	   </insert>
+	
+	<insert id="insertAttendence" parameterType="attend">
+	insert into tb_attendence(
+		no, att_status, att_enter_time, att_no
+    )values(
+    	#{no},#{attStatus},#{attEnterTime}, s_att_no.nextval
+    )
+	</insert>
+	
+	<update id="updateAttendence" parameterType="attend">
+	update tb_attendence
+	   set att_leave_time = #{attLeaveTime},
+	       att_status = #{attStatus}
+	 where att_no = #{attNo} 
+	</update>
+	
+	<delete id="deleteAttendence" parameterType="int">
+	delete 
+	  from tb_attendence
+	 where no = #{no}
+	</delete>
+	
+	<select id="selectAttendence" parameterType="attend">
+	select no, att_status, att_enter_time,
+		  att_leave_time, att_no
+	  from tb_attendence		
+	 
+	</select>	 
+
+	<select id="selectAttendenceCount" parameterType="attend" resultType="int">
+		select count(*)
+		  from tb_attendence
+		 where no = #{no}
+		   and att_status = #{attStatus}	
+		   
+	</select>
+     
+	<select id="selectAttendenceMonthCount1" parameterType="attend" resultType="int">
+		select count(*)
+		  from tb_attendence
+		 where att_status = 1
+		   and no = #{no}
+		 <![CDATA[
+		   and to_char(att_enter_time,'YYYY-MM-DD') >= TRUNC(#{attEnterTime},'MM')
+           and to_char(att_enter_time,'YYYY-MM-DD') <= LAST_DAY(#{attEnterTime})           
+         ]]> 
+     </select>	
+     
+     <select id="selectAttendenceMonthCount2" parameterType="attend" resultType="int">
+		select count(*)
+		  from tb_attendence
+		 where att_status = 2
+		   and no = #{no}
+		 <![CDATA[
+		   and to_char(att_enter_time,'YYYY-MM-DD') >= TRUNC(#{attEnterTime},'MM')
+           and to_char(att_enter_time,'YYYY-MM-DD') <= LAST_DAY(#{attEnterTime})           
+         ]]> 
+     </select>	
+     
+     <select id="selectAttendenceMonthCount3" parameterType="attend" resultType="int">
+		select count(*)
+		  from tb_attendence
+		 where att_status = 3
+		   and no = #{no}
+		 <![CDATA[
+		   and to_char(att_enter_time,'YYYY-MM-DD') >= TRUNC(#{attEnterTime},'MM')
+           and to_char(att_enter_time,'YYYY-MM-DD') <= LAST_DAY(#{attEnterTime})           
+         ]]> 
+     </select>	
+     
+     <select id="selectAttendenceMonthCount4" parameterType="attend" resultType="int">
+		select count(*)
+		  from tb_attendence
+		 where att_status = 4
+		   and no = #{no}
+		 <![CDATA[
+		   and to_char(att_leave_time,'YYYY-MM-DD') >= TRUNC(#{attLeaveTime},'MM')
+           and to_char(att_leave_time,'YYYY-MM-DD') <= LAST_DAY(#{attLeaveTime})           
+         ]]> 
+     </select>	
+     
+     <resultMap id="attendenceMap" type="attend">
+		<result column="no" property="no"/>
+		<result column="att_status" property="attStatus"/>
+		<result column="att_enter_time" property="attEnterTime"/>	
+		<result column="att_leave_time" property="attLeaveTime"/>	
+		<result column="att_no" property="attNo"/>	
+	</resultMap>
+     
+     	 <select id="selectAttendenceList" parameterType="attend" resultMap="attendenceMap">
+	 select *
+	   from tb_attendence	   
+	  where no = #{no}
+	  <![CDATA[
+		   and to_char(att_leave_time,'YYYY-MM-DD') >= TRUNC(#{attLeaveTime},'MM')
+           and to_char(att_leave_time,'YYYY-MM-DD') <= LAST_DAY(#{attLeaveTime})           
+         ]]> 	 
+       order by att_leave_time
+	  </select>
+
+      	 <select id="selectAttendenceList2" parameterType="attend" resultMap="attendenceMap">
+	 select *
+	   from tb_attendence	   
+	  where no = #{no}
+	  <![CDATA[
+		   and to_char(att_enter_time,'YYYY-MM-DD') >= TRUNC(#{attEnterTime},'MM')
+           and to_char(att_enter_time,'YYYY-MM-DD') <= LAST_DAY(#{attEnterTime})           
+         ]]> 	 
+       order by att_enter_time
+	  </select>
+
+	
+</mapper>	

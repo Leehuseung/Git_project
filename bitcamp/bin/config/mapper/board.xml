@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.bit_camp.dao.BoardMapper">
+	<resultMap id="boardMap" type="board">
+		<result column="no" property="no" />
+		<result column="post_no" property="postNo" />
+		<result column="post_title" property="postTitle" />
+		<result column="post_writer" property="postWriter" />
+		<result column="post_content" property="postContent" />
+		<result column="post_view_cnt" property="postViewCnt" />
+		<result column="post_reg_date" property="postRegDate" />
+		<result column="rnum" property="rnum" />
+	</resultMap>
+
+	<!-- 전체 게시물 조회 -->
+	<select id="selectBoard" resultMap="boardMap">
+	select rownum as rnum, a.*
+         from (select *
+                 from tb_board
+               order by post_reg_date desc) a
+	</select>
+	
+	    <resultMap id="boardDetailMap" type="board" >
+	    <result column="no" property="no" />
+        <result column="post_no" property="postNo"/>
+        <result column="post_writer" property="postWriter"/>
+        <result column="post_title" property="postTitle"/>
+        <result column="post_content" property="postContent"/>
+        <result column="post_reg_date" property="postRegDate"/>
+        <!-- commentList에 글번호에 해당하는 댓글 목록을 설정 -->
+        <collection property="commentList"
+                     column="post_no"
+                      select="selectCommentListByNo"/>
+        </resultMap>
+	
+	<select id="selectBoardByNo" resultMap="boardDetailMap" 
+	parameterType="int">
+	select * 
+	  from tb_board 
+	 where post_no = #{postNo} 	
+	</select>
+	
+	<select id="selectBoardById" resultMap="boardMap"
+	parameterType="int">
+	select *
+	  from tb_board
+	 where no = #{no}
+	</select>
+	
+	<resultMap id="commentMap" type="comment" >
+		<result column="no" property="no" />
+        <result column="com_no" property="comNo"/>
+        <result column="post_no" property="postNo"/>
+        <result column="com_writer" property="comWriter"/>
+        <result column="com_content" property="comContent"/>
+        <result column="com_reg_date" property="comRegDate"/>
+        
+    </resultMap>
+    
+    <select id="selectCommentListByNo" parameterType="int" 
+    resultMap="commentMap">
+        select *
+          from tb_comment
+          where post_no = #{postNo}
+          order by com_no
+    </select>
+    
+    <select id="selectCommentByNo" resultMap="commentMap" 
+	parameterType="comment">
+	select * 
+	  from tb_comment
+	 where post_no = #{postNo} and com_no = #{comNo}
+	</select>
+    
+	
+	<insert id="insertBoard" parameterType="board">
+		insert into tb_board( 
+		    post_no, post_title, post_writer, post_content, no
+		) values (
+		    s_board_post_no.nextval, #{postTitle}, #{postWriter}, #{postContent}, #{no}
+		)	
+	</insert>
+	
+	<update id="updateBoard" parameterType="board">
+	update tb_board 
+	   set post_title = #{postTitle}, 
+	       post_content = #{postContent} 
+	 where post_no = #{postNo}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+	delete 
+	  from tb_board 
+	 where post_no = #{postNo}
+	</delete>
+	
+	<select id="selectCommentById" parameterType="int" resultMap="commentMap">
+	select *
+	  from tb_comment
+	 where no = #{no}
+	</select>
+	
+	<select id="selectCommentByComNo" parameterType="int" resultMap="commentMap">
+	select *
+	  from tb_comment
+	 where com_no = #{comNo}
+	</select>
+	
+	<insert id="insertComment" parameterType="comment">
+		insert into tb_comment(
+		    com_no, post_no, com_writer, com_content, no
+		) values (
+		    s_comment_com_no.nextval, #{postNo}, #{comWriter}, #{comContent}, #{no}
+		)	
+	</insert>
+	
+	<update id="updateComment" parameterType="comment">
+	update tb_Comment
+	   set com_content = #{comContent}
+	 where com_no = #{comNo} and post_no = #{postNo}
+	</update>
+	
+	<delete id="deleteComment" parameterType="comment">
+	delete
+	  from tb_Comment
+	 where com_no = #{comNo} and post_no = #{postNo}
+	</delete>
+	
+	<select id="selectSearch" parameterType="board"
+	resultMap="boardMap">
+		select *
+          from tb_board
+          <where>
+          	<if test="postWriter != null">
+          	post_writer like '%' || #{postWriter} || '%'
+          	</if>
+          	<if test="postContent != null">
+          	post_content like '%' || #{postContent} || '%'
+          	</if>
+          </where>
+	</select>
+	
+	<select id="selectPagePostList" parameterType="board" resultMap="boardMap">
+ select *
+   from (select rownum as rnum, a.*
+           from (select *
+                   from tb_board
+                  order by post_reg_date desc) a)
+  where rnum between (#{pageNo} - 1) * 10 + 1 and #{pageNo} * 10
+	</select>
+	
+	<select id="selectLastPageNo" resultType="int">
+	select count(*)/10
+	  from tb_board
+	</select>
+	
+	<select id="selectGetPageNo" parameterType="int" resultType="double">
+    select ceil(rnum/10)
+      from (select rownum as rnum, a.*
+              from (select *
+                      from tb_board
+                    order by post_reg_date desc) a )
+     where post_no = #{postNo}
+	</select>
+	
+	
+<!-- 	<select id="selectPagePostList" parameterType="board" resultMap="boardMap"> -->
+<!-- 		select * -->
+<!-- 		  from ( -->
+<!--       			select rownum as rnum, A.* -->
+<!--         		  from ( -->
+<!--             			select post_no, post_writer, post_content, post_reg_date -->
+<!--               			  from tb_board -->
+<!--             			order by post_reg_date) A -->
+<!--              	 where rownum <= #{pageNo} * 10) B -->
+<!-- 		 where B.rnum > #{pageNO} * 10 - 10 -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="selectLastPostRownum" resultType="int"> -->
+<!-- 	select max(rownum) -->
+<!--   	  from tb_board -->
+<!-- 	</select> -->
+
+
+
+<!--     <select id="selectBoardIteratorList" parameterType="board" -->
+<!--     resultType=""> -->
+<!--     select * -->
+<!--       from tb_board -->
+<!--      <where> -->
+<!--      	<choose> -->
+<!--      		<when> -->
+<!--      			<if test="writer != null"> -->
+     			
+<!--      		</if> -->
+     	
+<!--      		</when> -->
+<!--      	</choose> -->
+     
+<!--      </where> -->
+    
+<!--     </select> -->
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

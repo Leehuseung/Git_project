@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.bit_camp.dao.BookMapper">
+    
+    <resultMap id="bookMap" type="book" >
+         <result column="book_no" property="bookNo" />
+         <result column="book_title" property="bookTitle" />
+         <result column="book_writer" property="bookWriter" />
+    </resultMap>
+    <resultMap id="hopeMap" type="hopebook">
+         <result column="id" property="id" />
+         <result column="hopebook_no" property="hopebookNo" />
+         <result column="hopebook_title" property="hopebookTitle" />
+         <result column="hopebook_writer" property="hopebookWriter" />
+         <result column="hopebook_date" property="hopebookDate" />
+    </resultMap>
+    
+   
+    <select id="selectBookList" resultMap="bookMap">
+      select *
+       from tb_book 
+       order by book_no desc
+    </select>
+    
+    <select id="selectBestList" resultMap="bookMap">
+      select b.book_title,
+             b.book_writer
+         from tb_book b, tb_rental r
+         where b.book_no = r.book_no
+         group by b.book_title, b.book_writer
+         order by count(*) desc
+    </select>
+    
+    
+    <select id="selectDetailList" parameterType="String"
+               resultMap="bookMap">
+      select *
+        from tb_book
+          where book_title like '%' || #{bookTitle} || '%'
+    </select>
+    
+    <select id="selectDetailList1" parameterType="String"
+               resultMap="bookMap">
+      select *
+        from tb_book
+          where book_writer like '%' || #{bookWriter} || '%'
+    </select>
+    
+    <select id="selectHopeBookList" resultMap="hopeMap">
+       select *
+        from tb_hopebook
+        order by hopebook_no desc
+    </select>
+
+    <insert id="insertHopeBook" parameterType="hopebook">
+       insert into tb_hopebook(
+       hopebook_no, id, hopebook_title, hopebook_writer,
+       hopebook_date
+       )
+       values(
+       s_hopebook_no.nextval, #{id}, #{hopebookTitle},
+       #{hopebookWriter},
+       sysdate 
+       )
+    </insert>
+    
+    <insert id="insertBook" parameterType="book">
+       insert into tb_book(book_no, book_title, book_writer)
+       values(
+       s_book_no.nextval, #{bookTitle},#{bookWriter} 
+       )
+    </insert>
+    
+    <delete id="deleteBook" parameterType="int">
+      delete tb_book
+       where book_no = #{bookNo} 
+    </delete>
+    
+    <delete id="deleteHopeBook" parameterType="int"> 
+         delete tb_hopebook 
+         where hopebook_no = #{hopebookNo}
+     </delete>
+</mapper>	

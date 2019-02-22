@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.bit_camp.dao.MessageMapper">
+	 
+	 <resultMap id="messageMap" type="message">
+		<result column="msg_no" property="no" />
+		<result column="msg_status" property="status" />
+		<result column="msg_send_id" property="sendId" />
+		<result column="msg_receive_id" property="receiveId" />
+		<result column="msg_send_name" property="sendName" />
+		<result column="msg_receive_name" property="receiveName" />
+		<result column="msg_content" property="content" />
+		<result column="msg_send_del" property="sendDel" />
+		<result column="msg_receive_del" property="receiveDel" />
+		<result column="msg_time" property="time" />
+		<result column="msg_title" property="title" />
+	</resultMap>
+	
+	<insert id="writeMessage" parameterType="message">
+	  insert into tb_message (
+	                     msg_no,msg_status,msg_title,
+                         msg_send_id,msg_receive_id,
+                         msg_send_name,msg_receive_name,
+                         msg_content,msg_send_del,
+                         msg_receive_del,msg_time
+	  )values(
+	  		s_message_no.nextval,#{status},#{title},
+	  		#{sendId},#{receiveId},
+	  		#{sendName},#{receiveName},
+	  		#{content},#{sendDel},
+	  		#{receiveDel},#{time}
+	  		)
+	</insert>
+	
+ 	 <select id="selectReceiveMessageList" parameterType="String" resultMap="messageMap"> 
+	 	select * 
+ 		  from tb_message
+ 		 where msg_receive_id=#{receiveId} 
+ 	</select>  
+ 	
+ 	 <select id="selectSendMessageList" parameterType="String" resultMap="messageMap"> 
+	 	select * 
+ 		  from tb_message
+ 		 where msg_send_id=#{sendId} 
+ 	</select> 
+ 	
+ 	<update id="updateStatusMessage" parameterType="message">
+ 	  update tb_message 
+         set msg_status = #{status}  
+       where msg_no=#{no}
+	</update>
+ 	
+ 	<update id="deleteReceiveMessage" parameterType="message">
+ 	  update tb_message 
+         set msg_receive_del = #{receiveDel}  
+       where msg_no=#{no}
+	</update>
+ 	<update id="deleteSendMessage" parameterType="message">
+ 	  update tb_message 
+         set msg_send_del = #{sendDel}  
+       where msg_no=#{no}
+	</update>
+ 	
+ 	<delete id="deleteMessage" parameterType="message">
+ 	  delete 
+ 	    from tb_message
+ 	   where msg_no=#{no}
+ 	</delete>
+ 	
+ 	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

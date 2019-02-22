@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.bit_camp.dao.BookMapper">
+    
+    <resultMap id="rentalMap" type="rental" >
+         <result column="no" property="no" />
+         <result column="book_no" property="bookNo" />
+         <result column="rental_no" property="rentalNo" />
+         <result column="rental_indate" property="rentalInDate" />
+         <result column="rental_outdate" property="rentalOutDate" />
+         <result column="rental_rent" property="rentalRent" />
+    </resultMap>
+    
+    
+    <insert id="insertRental" parameterType="rental">
+        insert into tb_rental(
+          no, book_no, rental_no, rental_indate, rental_rent
+        ) values(
+          #{no}, #{bookNo}, s_rental_no.nextval, sysdate,
+          1
+        )
+    </insert>
+    
+    <select id="selectRental" resultMap="rentalMap">
+          select *
+           from tb_rental
+    </select> 
+    
+    <select id="selectRentalList" parameterType="int"
+        resultMap="rentalMap">
+        select 
+              r.rental_no, b.book_title, b.book_writer,
+              to_char(r.rental_indate+3,'mm-dd hh:ss') as return_date
+         from tb_book b, tb_rental r
+         where b.book_no = r.book_no
+           and r.no = #{no}
+    
+    </select>
+    
+    <update id="updateReturnRental" parameterType="rental">
+         update tb_rental
+           set rental_rent = 0,
+               rental_outdate = sysdate
+           where no = #{no}
+            and book_no = #{bookNo}
+    
+    </update>
+    
+    
+    
+   
+</mapper>	
