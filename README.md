@@ -1,4 +1,3 @@
-# Git_project
 
 # bitcamp-community
 
