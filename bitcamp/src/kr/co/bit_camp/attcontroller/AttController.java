@@ -16,7 +16,6 @@ import kr.co.bit_camp.usercontroller.LogInController;
 import kr.co.bit_camp.vo.Attendence;
 
 public class AttController implements Controller {
-	//ㅋㅋㅋ
 	Scanner sc = new Scanner(System.in);
 	Calendar c = Calendar.getInstance();
 	private AttendMapper mapper;
