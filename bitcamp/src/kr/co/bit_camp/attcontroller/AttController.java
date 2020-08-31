@@ -20,7 +20,6 @@ public class AttController implements Controller {
 	//데스크탑에서푸쉬
 	//노트북에서 푸쉬
 	//노트북에서 푸쉬2 ㅋㅋㅋㅋㅋㅋㅇㅇㅇㄴㅁㅇㄴㅁㅇㅁㄴㅇㄴㅁㅇㅁㄴㅇ
-	//한개
 	Scanner sc = new Scanner(System.in);
 	Calendar c = Calendar.getInstance();
 	private AttendMapper mapper;
