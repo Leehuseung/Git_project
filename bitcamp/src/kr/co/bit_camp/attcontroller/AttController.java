@@ -18,7 +18,7 @@ import kr.co.bit_camp.vo.Attendence;
 public class AttController implements Controller {
 	//데스크탑에서푸쉬
 	//노트북에서 푸쉬
-	//노트북에서 푸쉬2 ㅋㅋㅋㅋㅋㅋ
+	//노트북에서 푸쉬2 ㅋㅋㅋㅋㅋㅋㅇㅇㅇㄴㅁㅇㄴㅁㅇㅁㄴㅇㄴㅁㅇㅁㄴㅇ
 	Scanner sc = new Scanner(System.in);
 	Calendar c = Calendar.getInstance();
 	private AttendMapper mapper;
