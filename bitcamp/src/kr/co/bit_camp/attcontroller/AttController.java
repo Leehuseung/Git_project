@@ -16,6 +16,7 @@ import kr.co.bit_camp.usercontroller.LogInController;
 import kr.co.bit_camp.vo.Attendence;
 
 public class AttController implements Controller {
+	//노트북에서작성
 	//다른 컴퓨터에서 푸쉬함
 	//커밋을 해보겠습니다.
 	//DESKTOP에서씀
