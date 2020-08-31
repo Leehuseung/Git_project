@@ -21,6 +21,8 @@ public class AttController implements Controller {
 	//노트북에서 푸쉬
 	//노트북에서 푸쉬2 ㅋㅋㅋㅋㅋㅋㅇㅇㅇㄴㅁㅇㄴㅁㅇㅁㄴㅇㄴㅁㅇㅁㄴㅇㅁㅁ
 	//master source
+	//hslee 새로만든 브랜치
+	//병합완료
 	Scanner sc = new Scanner(System.in);
 	Calendar c = Calendar.getInstance();
 	private AttendMapper mapper;
