@@ -16,6 +16,7 @@ import kr.co.bit_camp.usercontroller.LogInController;
 import kr.co.bit_camp.vo.Attendence;
 
 public class AttController implements Controller {
+	//DESKTOP에서씀
 	Scanner sc = new Scanner(System.in);
 	Calendar c = Calendar.getInstance();
 	private AttendMapper mapper;
@@ -26,14 +27,14 @@ public class AttController implements Controller {
 		mapper = session.getMapper(AttendMapper.class);
 	}
 	public int choiceMenu() {
-		System.out.println("출결관리");
+		System.out.println("異쒓껐愿�由�");
 		System.out.println("---------------------------------");		
-		System.out.println("1. 입실");
-		System.out.println("2. 퇴실");
-		System.out.println("3. 나의 출결 현황");
-		System.out.println("4. 뒤로");
+		System.out.println("1. �엯�떎");
+		System.out.println("2. �눜�떎");
+		System.out.println("3. �굹�쓽 異쒓껐 �쁽�솴");
+		System.out.println("4. �뮘濡�");
 		System.out.println("---------------------------------");
-		System.out.print("메뉴 중 처리할 항목을 선택하세요 : ");		
+		System.out.print("硫붾돱 以� 泥섎━�븷 �빆紐⑹쓣 �꽑�깮�븯�꽭�슂 : ");		
 		return Integer.parseInt(sc.nextLine());		
 	}
 	public void service() throws Exception {		
@@ -50,17 +51,17 @@ public class AttController implements Controller {
 			case 4:
 				return;
 			default:
-				System.out.println("없는번호입니다.");
-				System.out.println("메뉴를 확인해 주세요.");
+				System.out.println("�뾾�뒗踰덊샇�엯�땲�떎.");
+				System.out.println("硫붾돱瑜� �솗�씤�빐 二쇱꽭�슂.");
 			}
 		}
 	}
 	public int enterMenu() {	
-		System.out.println("입실하시겠습니까?");
+		System.out.println("�엯�떎�븯�떆寃좎뒿�땲源�?");
 		System.out.println("---------------------------------");
-		System.out.println("1. 예");
-		System.out.println("2. 아니요");		
-		System.out.print("메뉴 중 처리할 항목을 선택하세요 : ");
+		System.out.println("1. �삁");
+		System.out.println("2. �븘�땲�슂");		
+		System.out.print("硫붾돱 以� 泥섎━�븷 �빆紐⑹쓣 �꽑�깮�븯�꽭�슂 : ");
 		return Integer.parseInt(sc.nextLine());		
 	}
 	public void enteryes() {
@@ -77,16 +78,16 @@ public class AttController implements Controller {
 				att.setAttStatus(1);						
 			}else {
 				att.setAttStatus(2);
-				System.out.println("지각처리 되었습니다.");
-				System.out.println("조퇴 및 지각 5번 이상 시 결석 1회로 처리됩니다.");
+				System.out.println("吏�媛곸쿂由� �릺�뿀�뒿�땲�떎.");
+				System.out.println("議고눜 諛� 吏�媛� 5踰� �씠�긽 �떆 寃곗꽍 1�쉶濡� 泥섎━�맗�땲�떎.");
 				System.out.println("---------------------------------");
 			}
 				
 		} catch (ParseException e) {					
 			e.printStackTrace();
 		}								
-		System.out.println("나의 출결 현황에 등록되었습니다.");
-		System.out.println("09시 40분 이후부터 지각처리됩니다.");
+		System.out.println("�굹�쓽 異쒓껐 �쁽�솴�뿉 �벑濡앸릺�뿀�뒿�땲�떎.");
+		System.out.println("09�떆 40遺� �씠�썑遺��꽣 吏�媛곸쿂由щ맗�땲�떎.");
 		System.out.println("---------------------------------");
 		att.setNo(LogInController.logInUser.getNo());
 		mapper.insertAttendence(att);
@@ -101,17 +102,17 @@ public class AttController implements Controller {
 			case 2:
 				return;				
 			default:
-				System.out.println("없는번호입니다.");
-				System.out.println("메뉴를 확인해 주세요.");				
+				System.out.println("�뾾�뒗踰덊샇�엯�땲�떎.");
+				System.out.println("硫붾돱瑜� �솗�씤�빐 二쇱꽭�슂.");				
 			}	
 		}			
 	}
 	public int leaveMenu() {	
-		System.out.println("퇴실하시겠습니까?");
+		System.out.println("�눜�떎�븯�떆寃좎뒿�땲源�?");
 		System.out.println("---------------------------------");
-		System.out.println("1. 예");
-		System.out.println("2. 아니요");		
-		System.out.print("메뉴 중 처리할 항목을 선택하세요 : ");
+		System.out.println("1. �삁");
+		System.out.println("2. �븘�땲�슂");		
+		System.out.print("硫붾돱 以� 泥섎━�븷 �빆紐⑹쓣 �꽑�깮�븯�꽭�슂 : ");
 		return Integer.parseInt(sc.nextLine());		
 	}	
 	public void leaveyes() {
@@ -147,15 +148,15 @@ public class AttController implements Controller {
 			}
 			else {
 				att.setAttStatus(3);
-				System.out.println("조퇴처리 되었습니다.");
-				System.out.println("조퇴 및 지각 5번 이상 시 결석 1회로 처리됩니다.");
+				System.out.println("議고눜泥섎━ �릺�뿀�뒿�땲�떎.");
+				System.out.println("議고눜 諛� 吏�媛� 5踰� �씠�긽 �떆 寃곗꽍 1�쉶濡� 泥섎━�맗�땲�떎.");
 			}
 			
 		} catch (ParseException e) {					
 			e.printStackTrace();
 		}								
-		System.out.println("나의 출결 현황에 등록되었습니다.");
-		System.out.println("18시 20분 이전은 조퇴처리됩니다.");
+		System.out.println("�굹�쓽 異쒓껐 �쁽�솴�뿉 �벑濡앸릺�뿀�뒿�땲�떎.");
+		System.out.println("18�떆 20遺� �씠�쟾�� 議고눜泥섎━�맗�땲�떎.");
 		att.setNo(LogInController.logInUser.getNo());
 		mapper.updateAttendence(att);		
 	}
@@ -168,16 +169,16 @@ public class AttController implements Controller {
 			case 2:
 				return;
 			default:
-				System.out.println("없는번호입니다.");
-				System.out.println("메뉴를 확인해 주세요.");
+				System.out.println("�뾾�뒗踰덊샇�엯�땲�떎.");
+				System.out.println("硫붾돱瑜� �솗�씤�빐 二쇱꽭�슂.");
 			}
 		}
 	}
 	public int statusMenu() {		
-		System.out.println("1. 월별 출석 현황");
-		System.out.println("2. 전체 출석 현황");
-		System.out.println("3. 뒤로");
-		System.out.print("메뉴 중 처리할 항목을 선택하세요 : ");
+		System.out.println("1. �썡蹂� 異쒖꽍 �쁽�솴");
+		System.out.println("2. �쟾泥� 異쒖꽍 �쁽�솴");
+		System.out.println("3. �뮘濡�");
+		System.out.print("硫붾돱 以� 泥섎━�븷 �빆紐⑹쓣 �꽑�깮�븯�꽭�슂 : ");
 		return Integer.parseInt(sc.nextLine());
 	}
 	public int status(int k,List<Attendence> list) {
@@ -199,9 +200,9 @@ public class AttController implements Controller {
 		att.setNo(LogInController.logInUser.getNo());		
 		List<Attendence> list = mapper.selectAttendenceList(att);
 		
-		System.out.printf("%d년 %2d월\n", c.get(Calendar.YEAR), c.get(Calendar.MONTH)+1);
+		System.out.printf("%d�뀈 %2d�썡\n", c.get(Calendar.YEAR), c.get(Calendar.MONTH)+1);
 		System.out.println("----------------------------------------------");
-		System.out.println("일        월         화         수         목         금         토");
+		System.out.println("�씪        �썡         �솕         �닔         紐�         湲�         �넗");
 		int lastDate = c.getActualMaximum(Calendar.DAY_OF_MONTH); 
 		c.set(Calendar.DAY_OF_MONTH, 1); 
 		int dayWeek = c.get(Calendar.DAY_OF_WEEK); 					
@@ -225,11 +226,11 @@ public class AttController implements Controller {
 						break;
 					case 2 :
 						System.out.print((++nlCnt % 7 == 0) ? "\n"  :  
-							(nlCnt % 7 == 1 ?"  " : "△ "));
+							(nlCnt % 7 == 1 ?"  " : "�뼰 "));
 						break;
 					case 3 :
 						System.out.print((++nlCnt % 7 == 0) ? "\n"  :  
-							(nlCnt % 7 == 1 ?"  " : "▲ "));
+							(nlCnt % 7 == 1 ?"  " : "�뼯 "));
 						break;
 					case 4 :
 						System.out.print((++nlCnt % 7 == 0) ? "\n"  : 
@@ -253,9 +254,9 @@ public class AttController implements Controller {
 		att.setNo(LogInController.logInUser.getNo());		
 		List<Attendence> list = mapper.selectAttendenceList(att);
 		
-		System.out.printf("%d년 %2d월\n", c.get(Calendar.YEAR), c.get(Calendar.MONTH)+1);
+		System.out.printf("%d�뀈 %2d�썡\n", c.get(Calendar.YEAR), c.get(Calendar.MONTH)+1);
 		System.out.println("----------------------------------------------");
-		System.out.println("일        월         화         수         목         금         토");
+		System.out.println("�씪        �썡         �솕         �닔         紐�         湲�         �넗");
 		int lastDate = c.getActualMaximum(Calendar.DAY_OF_MONTH); 
 		c.set(Calendar.DAY_OF_MONTH, 1); 
 		int dayWeek = c.get(Calendar.DAY_OF_WEEK); 					
@@ -279,11 +280,11 @@ public class AttController implements Controller {
 						break;
 					case 2 :
 						System.out.print((++nlCnt % 7 == 0) ? "\n"  :  
-							(nlCnt % 7 == 1 ?"  " : "△ "));
+							(nlCnt % 7 == 1 ?"  " : "�뼰 "));
 						break;
 					case 3 :
 						System.out.print((++nlCnt % 7 == 0) ? "\n"  :  
-							(nlCnt % 7 == 1 ?"  " : "▲ "));
+							(nlCnt % 7 == 1 ?"  " : "�뼯 "));
 						break;
 					case 4 :
 						System.out.print((++nlCnt % 7 == 0) ? "\n"  : 
@@ -302,9 +303,9 @@ public class AttController implements Controller {
 			System.out.println();
 		}
 	public void month() {
-		System.out.printf("%d년 %2d월\n", c.get(Calendar.YEAR), c.get(Calendar.MONTH)+1);
+		System.out.printf("%d�뀈 %2d�썡\n", c.get(Calendar.YEAR), c.get(Calendar.MONTH)+1);
 		System.out.println("----------------------------------------------");
-		System.out.println("일\t월\t화\t수\t목\t금\t토");
+		System.out.println("�씪\t�썡\t�솕\t�닔\t紐�\t湲�\t�넗");
 		int lastDate = c.getActualMaximum(Calendar.DAY_OF_MONTH);  
 		
 		c.set(Calendar.DAY_OF_MONTH, 1);  
@@ -329,7 +330,7 @@ public class AttController implements Controller {
 	
 	public void calendar() {
 		while(true) {			
-			System.out.print("항목을 선택하세요(1. 현재달 출석현황  2. 이전달 출석현황  3. 다음달 출석현황  4. 뒤로) :");
+			System.out.print("�빆紐⑹쓣 �꽑�깮�븯�꽭�슂(1. �쁽�옱�떖 異쒖꽍�쁽�솴  2. �씠�쟾�떖 異쒖꽍�쁽�솴  3. �떎�쓬�떖 異쒖꽍�쁽�솴  4. �뮘濡�) :");
 			int num =  Integer.parseInt(sc.nextLine());
 			switch(num) {
 			case 1:			
@@ -345,15 +346,15 @@ public class AttController implements Controller {
 			
 				c.set(c.get(Calendar.YEAR),	c.get(Calendar.MONTH), 1);
 				System.out.println();
-				System.out.println("출석 : ○");
-				System.out.println("지각 : △");
-				System.out.println("조퇴 : ▲");
-				System.out.println("결석 : X");
+				System.out.println("異쒖꽍 : �뿃");
+				System.out.println("吏�媛� : �뼰");
+				System.out.println("議고눜 : �뼯");
+				System.out.println("寃곗꽍 : X");
 				
-				System.out.println("출석일 수 : " + mapper.selectAttendenceMonthCount1(att));
-				System.out.println("지각일 수 : " + mapper.selectAttendenceMonthCount2(att));
-				System.out.println("조퇴일 수 : " + mapper.selectAttendenceMonthCount3(att));
-				System.out.println("결석일 수 : " + mapper.selectAttendenceMonthCount4(att));
+				System.out.println("異쒖꽍�씪 �닔 : " + mapper.selectAttendenceMonthCount1(att));
+				System.out.println("吏�媛곸씪 �닔 : " + mapper.selectAttendenceMonthCount2(att));
+				System.out.println("議고눜�씪 �닔 : " + mapper.selectAttendenceMonthCount3(att));
+				System.out.println("寃곗꽍�씪 �닔 : " + mapper.selectAttendenceMonthCount4(att));
 				break;						
 			case 2:	
 				att.setNo(LogInController.logInUser.getNo());
@@ -367,15 +368,15 @@ public class AttController implements Controller {
 				else month();
 				
 				System.out.println();
-				System.out.println("출석 : ○");
-				System.out.println("지각 : △");
-				System.out.println("조퇴 : ▲");
-				System.out.println("결석 : X");
+				System.out.println("異쒖꽍 : �뿃");
+				System.out.println("吏�媛� : �뼰");
+				System.out.println("議고눜 : �뼯");
+				System.out.println("寃곗꽍 : X");
 				
-				System.out.println("출석일 수 : " + mapper.selectAttendenceMonthCount1(att));
-				System.out.println("지각일 수 : " + mapper.selectAttendenceMonthCount2(att));
-				System.out.println("조퇴일 수 : " + mapper.selectAttendenceMonthCount3(att));
-				System.out.println("결석일 수 : " + mapper.selectAttendenceMonthCount4(att));				
+				System.out.println("異쒖꽍�씪 �닔 : " + mapper.selectAttendenceMonthCount1(att));
+				System.out.println("吏�媛곸씪 �닔 : " + mapper.selectAttendenceMonthCount2(att));
+				System.out.println("議고눜�씪 �닔 : " + mapper.selectAttendenceMonthCount3(att));
+				System.out.println("寃곗꽍�씪 �닔 : " + mapper.selectAttendenceMonthCount4(att));				
 				
 				break;
 			case 3:
@@ -386,21 +387,21 @@ public class AttController implements Controller {
 				att.setAttEnterTime(d);
 				month();
 				System.out.println();
-				System.out.println("출석 : ○");
-				System.out.println("지각 : △");
-				System.out.println("조퇴 : ▲");
-				System.out.println("결석 : X");				
+				System.out.println("異쒖꽍 : �뿃");
+				System.out.println("吏�媛� : �뼰");
+				System.out.println("議고눜 : �뼯");
+				System.out.println("寃곗꽍 : X");				
 
-				System.out.println("출석일 수 : " + mapper.selectAttendenceMonthCount1(att));
-				System.out.println("지각일 수 : " + mapper.selectAttendenceMonthCount2(att));
-				System.out.println("조퇴일 수 : " + mapper.selectAttendenceMonthCount3(att));
-				System.out.println("결석일 수 : " + mapper.selectAttendenceMonthCount4(att));				
+				System.out.println("異쒖꽍�씪 �닔 : " + mapper.selectAttendenceMonthCount1(att));
+				System.out.println("吏�媛곸씪 �닔 : " + mapper.selectAttendenceMonthCount2(att));
+				System.out.println("議고눜�씪 �닔 : " + mapper.selectAttendenceMonthCount3(att));
+				System.out.println("寃곗꽍�씪 �닔 : " + mapper.selectAttendenceMonthCount4(att));				
 				break;
 			case 4:
 				return;
 			default:
-				System.out.println("없는번호입니다.");
-				System.out.println("메뉴를 확인해 주세요.");
+				System.out.println("�뾾�뒗踰덊샇�엯�땲�떎.");
+				System.out.println("硫붾돱瑜� �솗�씤�빐 二쇱꽭�슂.");
 			}
 		}
 	}	
@@ -413,26 +414,26 @@ public class AttController implements Controller {
 				break;																
 			case 2:				
 				att.setNo(LogInController.logInUser.getNo());
-				System.out.println("전체 출석 현황");
+				System.out.println("�쟾泥� 異쒖꽍 �쁽�솴");
 				System.out.println("---------------------------------");
 				att.setAttStatus(1);
-				System.out.printf("총 출석일 수 : %d%n" ,mapper.selectAttendenceCount(att) );
+				System.out.printf("珥� 異쒖꽍�씪 �닔 : %d%n" ,mapper.selectAttendenceCount(att) );
 				att.setAttStatus(2);
-				System.out.printf("총 지각일 수 : %d%n", mapper.selectAttendenceCount(att));
+				System.out.printf("珥� 吏�媛곸씪 �닔 : %d%n", mapper.selectAttendenceCount(att));
 				att.setAttStatus(3);
-				System.out.printf("총 조퇴 수 : %d%n", mapper.selectAttendenceCount(att));
+				System.out.printf("珥� 議고눜 �닔 : %d%n", mapper.selectAttendenceCount(att));
 				att.setAttStatus(4);
-				System.out.printf("총 결석 수 : %d%n", mapper.selectAttendenceCount(att));
-				System.out.println("결석 10번 이상시 강제 수강철회 됩니다.");
-				System.out.println("조퇴 및 지각 5번 이상 시 결석 1회로 처리됩니다.");
-				System.out.printf("총 결석 : %d/10%n", mapper.selectAttendenceCount(att));
+				System.out.printf("珥� 寃곗꽍 �닔 : %d%n", mapper.selectAttendenceCount(att));
+				System.out.println("寃곗꽍 10踰� �씠�긽�떆 媛뺤젣 �닔媛뺤쿋�쉶 �맗�땲�떎.");
+				System.out.println("議고눜 諛� 吏�媛� 5踰� �씠�긽 �떆 寃곗꽍 1�쉶濡� 泥섎━�맗�땲�떎.");
+				System.out.printf("珥� 寃곗꽍 : %d/10%n", mapper.selectAttendenceCount(att));
 				System.out.println("---------------------------------");
 				break;
 			case 3:
 				return;
 			default:
-				System.out.println("없는번호입니다.");
-				System.out.println("메뉴를 확인해 주세요.");
+				System.out.println("�뾾�뒗踰덊샇�엯�땲�떎.");
+				System.out.println("硫붾돱瑜� �솗�씤�빐 二쇱꽭�슂.");
 			}
 		}
 	}
