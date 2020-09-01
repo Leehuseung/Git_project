@@ -15,7 +15,7 @@ import kr.co.bit_camp.vo.Attendence;
 import kr.co.bit_camp.vo.User;
 
 public class ManagerAttController  implements Controller{
-	//zz
+	//zzs
 	Scanner sc = new Scanner(System.in);
 	private UserMapper mapper2;
 	private AttendMapper mapper;
